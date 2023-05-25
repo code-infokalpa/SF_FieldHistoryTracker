@@ -1,0 +1,84 @@
+<template>
+    <template if:true={isAccessible}>
+        <div class="container forceRelatedListSingleContainer">
+            <article class="slds-card slds-card_boundary headerBottomBorder forceRelatedListCardDesktop">
+                <div class="slds-grid slds-page-header forceRelatedListCardHeader">
+                    <header class={headerStyle}>
+                        <template if:true={iconName}>
+                            <div class="slds-media__figure stencil slds-avatar slds-avatar_small">
+                                <div class="extraSmall forceEntityIcon">
+                                    <lightning-icon icon-name={iconName} alternative-text={pluralLabel}
+                                        title={pluralLabel} size="x-small"></lightning-icon>
+                                </div>
+                            </div>
+                        </template>
+                        <div class={headerTitleStyle}>
+                            <h2><a class="slds-card__header-link baseCard__header-title-container"
+                                    href="javascript:void(0)"><span
+                                        class="slds-card__header-title slds-truncate slds-m-right--xx-small"
+                                        title={pluralLabel}>{pluralLabel}</span><span
+                                        class="slds-card__header-title slds-shrink-none slds-m-right--xx-small">({recordsSize})</span></a>
+                            </h2>
+                        </div>
+                        <div class={headerActionsContainerStyle}>
+                            <div class="actionsContainer">
+                                <ul class={headerActionsStyle}>
+                                    <li class="help-icon slds-align_absolute-center slds-m-right_xx-small">
+                                        <lightning-icon icon-name="utility:info" alternative-text="Info" size="xx-small"
+                                            title="Select the maximum number of records to view in this whole related list.">
+                                        </lightning-icon>
+                                    </li>
+                                    <li>
+                                        <lightning-combobox name="maxRecords" variant="label-hidden" value={maxRecords}
+                                            dropdown-alignment="right" options={maxRecordsOptions} placeholder=""
+                                            onchange={handleMaxRecordsChange}>
+                                        </lightning-combobox>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </header>
+                </div>
+                <div>
+                    <div>
+                        <div class="forceRelatedListPreview">
+                            <div>
+                                <div class="slds-card__body">
+                                    <template if:true={_isLoading}>
+                                        <div class="slds-is-relative spinner-container">
+                                            <lightning-spinner alternative-text="Loading" size="small">
+                                            </lightning-spinner>
+                                        </div>
+                                    </template>
+                                    <template if:false={_isLoading}>
+                                        <template if:true={records}>
+                                            <template if:true={isDisplayModeTable}>
+                                                <lightning-datatable key-field="id" data={displayedRecords}
+                                                    columns={fields} resize-column-disabled hide-checkbox-column>
+                                                </lightning-datatable>
+                                            </template>
+                                            <template if:true={isDisplayModeTiles}>
+                                                <div class="slds-grid slds-wrap">
+                                                    <template for:each={displayedRecords} for:item="record">
+                                                        <c-record-tile
+                                                            class="slds-col slds-size_1-of-2 slds-max-small-size_1-of-1"
+                                                            key={record.id} record={record}></c-record-tile>
+                                                    </template>
+                                                </div>
+                                            </template>
+                                        </template>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a onclick={handleViewMore}>
+                    <div class="slds-card__footer"><span class="view-all-label">{labels.viewMore}
+                            <span>({moreRecordsLength})</span></span>
+                    </div>
+                </a>
+            </article>
+        </div>
+    </template>
+</template>

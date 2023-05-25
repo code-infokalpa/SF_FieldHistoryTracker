@@ -1,0 +1,21 @@
+.spinner-container {
+    min-height: 3rem;
+}
+
+.responsive-header {
+    display: block;
+    height: auto;
+}
+
+.responsive-header-title {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.responsive-header-actions-container {
+    text-align: right;
+}
+
+.responsive-header-actions {
+    width: 50%;
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>48.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Big Object Related List - Single</masterLabel>
+    <description>This component displays a single related list of a big object records</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property label="Icon name" name="iconName" type="String" description="Choose which icon to show next to the related list title, use the following link as 
+                a reference: https://www.lightningdesignsystem.com/icons/. 
+                For example, you can enter: 'standard:article'"/>
+            <property label="Icon background color" name="iconBackgroundColor" type="String" description="Type the HEX color to use as a background for the choosed icon. 
+                For example, you can enter: '#FFFFFF'"/>
+            <property label="Big Object API Name" name="apiName" type="String" required="true" description="Type the API Name of the related big object. 
+                For example, you can enter: 'Archived_Task__b'"/>            
+            <property label="Fields to display for each record" name="retrievedFields" type="String" required="true" description="Type the API name of the fields to display, separated by a comma. 
+                For example, you can type: 'Type__c,Email__c,Subject__c,Due_Date__c'"/>
+            <property label="Number of records options" name="numberOfRecords" type="String" required="true" default="100,200,300,400,500" description="Type the options of the number of records to retrieve, separated by a comma. 
+                Those options will be displayed to the end-user in a picklist, to offer him the choice of 
+                how many records to retrieve. For example, you can type: '50,100,150'."/>
+            <property label="Display mode (large screens)" name="displayModeLarge" type="String" datasource="Table,Tiles" default="Table" description="Choose the display mode for large screens"/>
+            <property label="Display mode (medium screens)" name="displayModeMedium" type="String" datasource="Table,Tiles" default="Table" description="Choose the display mode for medium screens"/>
+            <property label="Display mode (small screens)" name="displayModeSmall" type="String" datasource="Tiles" default="Tiles" description="Choose the display mode for small screens"/>
+            <supportedFormFactors>
+                <supportedFormFactor type="Small"/>
+                <supportedFormFactor type="Large"/>
+            </supportedFormFactors>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

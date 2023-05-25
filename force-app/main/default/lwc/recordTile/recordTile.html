@@ -1,0 +1,7 @@
+<template>
+    <article key={record.Id} class="record-tile">
+        <template for:each={record.fieldsData} for:item="fieldData">
+            <c-tile-line key={fieldData.fieldName} field-data={fieldData}></c-tile-line>
+        </template>
+    </article>
+</template>

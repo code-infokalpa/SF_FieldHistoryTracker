@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>All_Records_Are_Displayed_Message</fullName>
+        <categories>BO_RL</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All_Records_Are_Displayed_Message</shortDescription>
+        <value>All the loaded records are already displayed in the related list. If you want to see more, try selecting a greater option through the top-right picklist.</value>
+    </labels>
+    <labels>
+        <fullName>All_Records_Are_Displayed_Title</fullName>
+        <categories>BO_RL</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>All_Records_Are_Displayed_Title</shortDescription>
+        <value>All the records are already displayed</value>
+    </labels>
+    <labels>
+        <fullName>Go_to_URL</fullName>
+        <categories>BO_RL</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Go to URL</shortDescription>
+        <value>Go to URL</value>
+    </labels>
+    <labels>
+        <fullName>View_More</fullName>
+        <categories>BO_RL</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>View More</shortDescription>
+        <value>View More</value>
+    </labels>
+</CustomLabels>
