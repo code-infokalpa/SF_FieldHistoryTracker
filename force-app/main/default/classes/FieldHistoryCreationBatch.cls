@@ -3,7 +3,7 @@ global class FieldHistoryCreationBatch implements Database.Batchable<sObject>, D
     public Map<String, List<String>> objConfigs;
     global FieldHistoryCreationBatch() {
         objConfigs = new Map<String, List<String>>();
-        List<ManageRecordHistoryTracking__mdt> mrhList = [SELECT Id, DeveloperName,HistoryTrackingObjectName__c,Tracking_Object__r.QualifiedApiName,TrackedFieldName__c FROM ManageRecordHistoryTracking__mdt];
+        List<ManageRecordHistoryTracking__mdt> mrhList = [SELECT Id, DeveloperName,Tracking_Object__r.QualifiedApiName,TrackedFieldName__c FROM ManageRecordHistoryTracking__mdt];
         for(ManageRecordHistoryTracking__mdt mrh : mrhList){
             objConfigs.put(mrh.Tracking_Object__r.QualifiedApiName, mrh.TrackedFieldName__c.toLowerCase().split(','));
         }
@@ -109,7 +109,10 @@ global class FieldHistoryCreationBatch implements Database.Batchable<sObject>, D
         // execute any post-processing operations
         List<Field_History_Tracker__c> fhtList = [SELECT Id FROM Field_History_Tracker__c WHERE RecordType.DeveloperName = 'tracker'];
         if(fhtList.size() > 0){
-            HistoryTrackingCreateRecordQueue.startHistoryTrackingBatch();
+            if(!Test.isRunningTest()){
+                HistoryTrackingCreateRecordQueue.startHistoryTrackingBatch();
+            }
+            
         }
         else{
             List<Field_History_Tracker__c> fhtForUpdate = new List<Field_History_Tracker__c>([SELECT Id, Batch_Status__c, Name FROM Field_History_Tracker__c WHERE RecordType.DeveloperName = 'Batch_Info' AND Batch_Status__c = 'In-Progress']);

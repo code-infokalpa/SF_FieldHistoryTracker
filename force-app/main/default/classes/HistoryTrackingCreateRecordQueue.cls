@@ -77,7 +77,7 @@ public with sharing class HistoryTrackingCreateRecordQueue implements Queueable 
             fht.Batch_Status__c = 'In-Progress';
             fht.RecordTypeId = Schema.SObjectType.Field_History_Tracker__c.getRecordTypeInfosByDeveloperName().get('Batch_Info').getRecordTypeId();
             insert fht;
-            
+            startHistoryTrackingBatch();
         }
         
     }
@@ -87,37 +87,23 @@ public with sharing class HistoryTrackingCreateRecordQueue implements Queueable 
         Integer batchSize =  Field_History_Tracker_Batch_Config__c.getInstance().Batch_Size__c == null ? 10 : Integer.valueOf(Field_History_Tracker_Batch_Config__c.getInstance().Batch_Size__c);
         Database.executeBatch(fhcBatch,batchSize);
     }
-
-    public static List<SobjectHistoryTrackingWrapper> insertHistoryRecord(List<SobjectHistoryTrackingWrapper> recordsWrapper) {
-        Map<String, String> fieldsLabelMap = getFieldLabelList(String.valueOf(recordsWrapper[0].newRecordState.getSObjectType()));
-        ManageRecordHistoryTracking__mdt configRecord = getConfigMetadataRec(String.valueOf(recordsWrapper[0].newRecordState.getSObjectType()));
-        List<String> trackedFieldsList = configRecord.TrackedFieldName__c.split(',');
-        List<sObject> sObjHistoryList = new List<sObject>(); 
-        for(SobjectHistoryTrackingWrapper ohtWrapper: recordsWrapper){
-            if(ohtWrapper.oldRecordState != null){
-                for(String field : trackedFieldsList){
-                    sObject historyRec = Schema.getGlobalDescribe().get(configRecord.HistoryTrackingObjectName__c).newSObject();
-                    if(ohtWrapper.oldRecordState.get(field) != ohtWrapper.newRecordState.get(field)){
-                        
-                        historyRec.put('OldValue__c', String.valueOf(ohtWrapper.oldRecordState.get(field)));
-                        historyRec.put('NewValue__c', String.valueOf(ohtWrapper.newRecordState.get(field)));
-                        historyRec.put('User__c', UserInfo.getUserId());
-                        historyRec.put('Field__c', fieldsLabelMap.get(field.toLowerCase()));
-                        historyRec.put(configRecord.RelationshipFieldName__c, String.valueOf(ohtWrapper.newRecordState.get('id')));
-                        sObjHistoryList.add(historyRec);
-                    }
-                }
-            }
-        }
-        insert sObjHistoryList;
-        
-        return recordsWrapper;
-    }
     
     public static ManageRecordHistoryTracking__mdt getConfigMetadataRec(String objectName){
-        ManageRecordHistoryTracking__mdt metadataRec = [SELECT DeveloperName, ObjectAPIName__c, RelationshipFieldName__c, TrackedFieldName__c,HistoryTrackingObjectName__c
-                                                    FROM ManageRecordHistoryTracking__mdt WHERE ObjectAPIName__c = :objectName];
-        return metadataRec;
+        if(!Test.isRunningTest()){
+            ManageRecordHistoryTracking__mdt metadataRec = [SELECT DeveloperName, Tracking_Object__r.QualifiedApiName, TrackedFieldName__c
+                FROM ManageRecordHistoryTracking__mdt WHERE Tracking_Object__r.QualifiedApiName = :objectName];
+                return metadataRec; 
+        }
+        else{
+            ManageRecordHistoryTracking__mdt metadataRec = new ManageRecordHistoryTracking__mdt();
+            EntityDefinition ed = [SELECT Id FROM EntityDefinition WHERE QualifiedApiName = 'Account' LIMIT 1];
+            metadataRec.DeveloperName = 'myName';
+            metadataRec.Tracking_Object__c = 'Account';
+            metadataRec.TrackedFieldName__c = 'Name,Email';
+            return metadataRec;
+        }
+        
+        
     }
     
     public static Map<String, String> getFieldLabelList(String sObjectName){

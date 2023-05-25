@@ -33,12 +33,13 @@ export default class BigObjectRelatedList extends LightningElement {
     @api recordId;
     @api iconName;
     @api iconBackgroundColor;
-    @api apiName;
-    @api retrievedFields;
+    @track apiName = 'Field_History_Store__b';
+    @track retrievedFields = 'Field_Label__c,User__c,Old_Value__c,New_Value__c,Created_Date__c';
     @api numberOfRecords;
     @api displayModeLarge;
     @api displayModeMedium;
     @api displayModeSmall;
+    @api headerTitle;
 
     @track fields;
     @track records;
@@ -127,8 +128,14 @@ export default class BigObjectRelatedList extends LightningElement {
     // Wire the big object plural label according to the current user language.
     @wire(getSObjectPluralLabel, ({ apiName: '$apiName' }))
     wiredpluralLabel({ error, data }) {
-        if (data) {
-            this.pluralLabel = data;
+        if (data) { 
+            if(this.headerTitle === '' || this.headerTitle === undefined){
+                this.pluralLabel = data;
+            }
+            else{
+                this.pluralLabel = this.headerTitle;
+            }
+            
         }
         else if (error) {
             console.error('Unexpected error when loading the big object plural label: ', error);

@@ -13,11 +13,9 @@
                 a reference: https://www.lightningdesignsystem.com/icons/. 
                 For example, you can enter: 'standard:article'"/>
             <property label="Icon background color" name="iconBackgroundColor" type="String" description="Type the HEX color to use as a background for the choosed icon. 
-                For example, you can enter: '#FFFFFF'"/>
-            <property label="Big Object API Name" name="apiName" type="String" required="true" description="Type the API Name of the related big object. 
-                For example, you can enter: 'Archived_Task__b'"/>            
-            <property label="Fields to display for each record" name="retrievedFields" type="String" required="true" description="Type the API name of the fields to display, separated by a comma. 
-                For example, you can type: 'Type__c,Email__c,Subject__c,Due_Date__c'"/>
+                For example, you can enter: '#FFFFFF'"/>   
+            <property label="Header Title to show" name="headerTitle" type="String" description="Change header title which shows as title of of related list by defaul
+                it shows as 'Field History Stores'"/>         
             <property label="Number of records options" name="numberOfRecords" type="String" required="true" default="100,200,300,400,500" description="Type the options of the number of records to retrieve, separated by a comma. 
                 Those options will be displayed to the end-user in a picklist, to offer him the choice of 
                 how many records to retrieve. For example, you can type: '50,100,150'."/>
