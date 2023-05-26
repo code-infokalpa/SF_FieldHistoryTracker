@@ -5,7 +5,7 @@
 <up commming>
 
 # The execution flow is shown in below diagram.
-<img src="./assets/FieldHistoryTracker_flow_diagram.png" alt="Execution flow of Field History creation" width="600">
+<img src="./assets/FieldHistoryTracker_flow_diagram.png" alt="Execution flow of Field History creation" width="500">
 
 
 # How to setup Field history tracking for an object.
