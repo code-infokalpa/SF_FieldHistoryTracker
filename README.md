@@ -2,7 +2,8 @@
 
 
 # Install and use as unmanaged package
-<up commming>
+Package URL :  [https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5w000005qy5iAAA](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5w000005qy5iAAA)   
+Keyphrase for installation: **infoklpa**
 
 # The execution flow is shown in below diagram.
 <img src="./assets/FieldHistoryTracker_flow_diagram.png" alt="Execution flow of Field History creation" width="500">
