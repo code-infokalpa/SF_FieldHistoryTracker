@@ -1,11 +1,14 @@
 ## This application is a highly scalable field history tracking solution that supports efficient data loading. It utilizes big objects to store field tracking history records. With this application, you have the flexibility to track an unlimited number of fields across multiple objects. Additionally, it provides the capability to track Long Text Area fields as well, offering comprehensive tracking capabilities for a wide range of field types.
 
-
+&nbsp;   
+&nbsp;   
 # Install and use as unmanaged package
 Package URL :  [https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5w000005qy5iAAA](https://login.salesforce.com/packaging/installPackage.apexp?p0=04t5w000005qy5iAAA)   
 Keyphrase for installation: **infokalpa**
 
-# The execution flow is shown in below diagram.
+# The execution flow
+Below diagram shows execution flow of field history record creation.    
+&nbsp;   
 <img src="./assets/FieldHistoryTracker_flow_diagram.png" alt="Execution flow of Field History creation" width="500">
 
 
@@ -32,7 +35,15 @@ Lets take example if you are creating field history tracking for contact object.
 
 
 # Configuration options
+## Batch configuration
+1. Default batch size for processing Field_History_Tracker__c records is 10, you can change batch size using "Field History Tracker Batch Config" custom settings by creating an org level record and populate "Batch Size" field.
 
+## Field History related list
+1. 'Icon name' - Choose which icon to show next to the related list title, use the following link as a reference: https://www.lightningdesignsystem.com/icons/. For example, you can enter: 'standard:article'"
+2. 'Icon background color' - Type the HEX color to use as a background for the choosed icon. For example, you can enter: '#FFFFFF'"
+3. 'Header Title to show' - Change header title which shows as title of of related list by default it shows as 'Field History Stores'"
+4. 'Number of records options' - Type the options of the number of records to retrieve, separated by a comma. Those options will be displayed to the end-user in a picklist, to offer him the choice of how many records to retrieve. For example, you can type: '50,100,150'."
+5. Display mode small, medium and large screens - Choose the display mode for respective screen sizes.
 
 # caveats
 1. If you choose to manually 'abort' the FieldHistoryCreationBatch, it is important to ensure that you also delete all "Field_History_Tracker__c" records with the record type "Batch_Info". This can be done using the following query: "SELECT Id FROM Field_History_Tracker__c WHERE RecordType.DeveloperName = 'Batch_Info'".
